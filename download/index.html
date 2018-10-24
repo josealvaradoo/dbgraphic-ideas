@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Descarga Prueba</title>
+</head>
+<body>
+    <textarea name="code" id="code" cols="30" rows="10"></textarea>
+    <a href="#" download="contenido.php" id="download">Descargar</a>
+
+    <script>
+        (d => {
+            const downdloadButton = d.getElementById('download')
+            
+            downdloadButton.addEventListener('click', () => {
+                const body = d.getElementById('code').value;
+                downdloadButton.href = `data:text/plain;charset=utf-8,${encodeURIComponent(body)}`;
+                console.log(downdloadButton);
+            })
+        })(document)
+    </script>
+</body>
+</html>
