@@ -34,7 +34,18 @@ foreach ($xml as $tables) {
       if ($rows->attributes()->autoincrement == 1 AND $rows->datatype == 'INTEGER') {
         $CONTENT_OF_MIGRATION .= "          " . '$table' . "->increments('".$rows->attributes()->name."'); \n";
       } elseif ($rows->attributes()->autoincrement == 0 AND $rows->datatype == 'INTEGER') {
-        $CONTENT_OF_MIGRATION .= "          " . '$table' . "->integer('".$rows->attributes()->name."'); \n";
+        if ($rows->relation) {
+
+          // ES NECESARIO QUE SEA UNIQUE()???
+          $CONTENT_OF_MIGRATION .= "          " . '$table' . "->integer('".$rows->attributes()->name."')->unique(); \n";
+
+          // Foreign Key Constraints
+          $CONTENT_OF_MIGRATION .= "          " . '$table' . "->unsignedInteger('".$rows->attributes()->name."'); \n";
+          $CONTENT_OF_MIGRATION .= "          " . '$table' . "->foreign('".$rows->attributes()->name."')->references('".$rows->relation->attributes()->row."')->on('".$rows->relation->attributes()->table."'); \n";
+        }else{
+          // CUANDO UNICAMENTE ES UN VALOR integer
+          $CONTENT_OF_MIGRATION .= "          " . '$table' . "->integer('".$rows->attributes()->name."'); \n";
+        }
       } elseif ($rows->attributes()->autoincrement == 0) {
         $CONTENT_OF_MIGRATION .= "          " . '$table' . "->string('".$rows->attributes()->name."'); \n";
       }
