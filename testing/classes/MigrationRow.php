@@ -86,10 +86,10 @@ class MigrationRow
                 $type = "string";
                 $chars = substr($this->type, 8, -1);
                 if($chars > 0) {
-                    $sentence .= "->{$type}('{$this->name}', {$chars})";
+                    $sentence = "\t\t\t\$table->{$type}('{$this->name}', {$chars})";
                 }
                 else {
-                    $sentence .= "->{$type}('{$this->name}')";
+                    $sentence = "\t\t\t\$table->{$type}('{$this->name}')";
                 }
             }
 

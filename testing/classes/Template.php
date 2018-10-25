@@ -35,7 +35,7 @@ class Template
 
     public function close()
     {
-        fclose($this->template);
+        $this->fileString = fclose($this->template);
     }
 
     public function render()
