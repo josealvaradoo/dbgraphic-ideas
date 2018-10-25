@@ -36,5 +36,5 @@ foreach($xml->get() as $m) {
     $migration->create();
     
     // Download File
-    // $migration->download($migration->getMigrationTable());
+    $migration->download($migration->getMigrationTable());
 }
